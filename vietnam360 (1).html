@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Vietnam 360 · Insight</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --em:#0D5C4A;--em2:#1A8C6E;--em-pale:#E6F5F0;--em-mid:#C2E8DA;
+  --gold:#C89B3C;--gold2:#F0C040;
+  --pink:#D4537E;--pink-pale:#FBEAF0;--pink-light:#F4C0D1;
+  --sand:#F7F3EC;--cream:#FDFAF5;--white:#fff;
+  --dark:#1A1A1A;--mid:#555;--soft:#888;--border:#E0DDD6;
+  --red:#E84040;
+  --r:14px;--rsm:8px;--rxs:6px;
+}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#f0ede6;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:2rem 1rem}
+
+/* PHONE SHELL */
+.phone{width:390px;background:var(--cream);border-radius:40px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.25),0 0 0 8px #1a1a1a,0 0 0 10px #333;position:relative;min-height:844px;display:flex;flex-direction:column}
+.phone-notch{background:#1a1a1a;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phone-notch-inner{width:120px;height:20px;background:#000;border-radius:0 0 14px 14px}
+.phone-body{flex:1;overflow:hidden;position:relative}
+
+/* SCREENS */
+.screen{position:absolute;inset:0;background:var(--cream);overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.active{display:flex}
+
+/* BOTTOM NAV */
+.bottom-nav{background:var(--white);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:0.6rem 0 0.8rem;flex-shrink:0;position:sticky;bottom:0;z-index:50}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:0 0.75rem;transition:color 0.18s;color:var(--soft);font-size:0.62rem;font-weight:500}
+.nav-item svg{width:22px;height:22px}
+.nav-item.active{color:var(--em)}
+
+/* TYPOGRAPHY */
+h1{font-family:'Playfair Display',serif;font-size:2.2rem;line-height:1.15;color:var(--dark)}
+h2{font-size:1.1rem;font-weight:600;color:var(--dark)}
+h3{font-size:0.95rem;font-weight:600;color:var(--dark)}
+p{font-size:0.88rem;color:var(--mid);line-height:1.55}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;border:none;border-radius:30px;font-family:'Be Vietnam Pro',sans-serif;font-weight:600;cursor:pointer;transition:all 0.18s}
+.btn-primary{background:var(--em);color:#fff;padding:0.75rem 1.75rem;font-size:0.9rem}
+.btn-primary:hover{background:var(--em2)}
+.btn-secondary{background:var(--em-pale);color:var(--em);padding:0.55rem 1rem;font-size:0.8rem;border:1.5px solid var(--em-mid)}
+.btn-pink{background:var(--pink-pale);color:var(--pink);padding:0.45rem 0.9rem;font-size:0.78rem;border:1.5px solid var(--pink-light)}
+.btn-ghost{background:transparent;color:var(--em);padding:0.45rem 0.9rem;font-size:0.78rem;border:1.5px solid var(--border)}
+.btn-sm{padding:0.35rem 0.75rem;font-size:0.75rem}
+
+/* FORM ELEMENTS */
+.select-field{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--border);border-radius:var(--rsm);padding:0.65rem 0.9rem;background:var(--white);font-size:0.88rem;color:var(--dark);cursor:pointer;transition:border-color 0.2s;font-family:'Be Vietnam Pro',sans-serif}
+.select-field:hover{border-color:var(--em2)}
+.select-field.selected{border-color:var(--em);background:var(--em-pale);color:var(--em);font-weight:600}
+.chevron{font-size:0.7rem;color:var(--soft)}
+
+/* TAGS */
+.tag{display:inline-block;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.68rem;font-weight:600;letter-spacing:0.02em}
+.tag-em{background:var(--em-pale);color:var(--em)}
+.tag-pink{background:var(--pink-pale);color:var(--pink)}
+.tag-gold{background:#FEF3D9;color:#8A6200}
+.tag-hot{background:#FEE8E0;color:#B03A0A}
+
+/* CARDS */
+.card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.card-pad{padding:1rem 1.1rem}
+
+/* ─────────── SCREEN 1: SPLASH ─────────── */
+#s-splash{background:linear-gradient(160deg,#0D5C4A 0%,#0a4237 60%,#1A2F20 100%);justify-content:center;align-items:center;text-align:center;gap:0}
+.splash-deco{width:100%;height:200px;position:absolute;top:0;left:0;opacity:0.07;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:14px 14px}
+.splash-inner{position:relative;z-index:1;padding:2rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.splash-logo-ring{width:90px;height:90px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center}
+.splash-logo-inner{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;font-weight:700}
+.splash-title{font-family:'Playfair Display',serif;font-size:2.4rem;color:#fff;line-height:1.15}
+.splash-title em{color:var(--gold2);font-style:italic}
+.splash-sub{font-size:0.9rem;color:rgba(255,255,255,0.6);font-weight:300;max-width:260px;line-height:1.6}
+.splash-badge{background:rgba(240,192,64,0.15);border:1px solid rgba(240,192,64,0.4);border-radius:20px;padding:0.35rem 1rem;font-size:0.8rem;color:var(--gold2);font-weight:600;letter-spacing:0.05em}"
+
+/* ─────────── SCREEN 2: ONBOARDING ─────────── */
+#s-onboard{padding:0}
+.onboard-header{padding:1.5rem 1.25rem 1rem;background:var(--white);border-bottom:1px solid var(--border)}
+.onboard-step{font-size:0.72rem;font-weight:700;color:var(--em);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem}
+.progress-bar{height:4px;background:var(--border);border-radius:4px;margin-bottom:1rem}
+.progress-fill{height:100%;background:var(--em);border-radius:4px;transition:width 0.4s}
+.onboard-body{padding:1.25rem;display:flex;flex-direction:column;gap:0.85rem;flex:1}
+.field-label{font-size:0.72rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem}
+
+/* Interest grid */
+.interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem}
+.int-btn{border:1.5px solid var(--border);border-radius:var(--rsm);padding:0.6rem 0.4rem;font-family:'Be Vietnam Pro',sans-serif;font-size:0.75rem;font-weight:500;background:var(--white);cursor:pointer;text-align:center;transition:all 0.18s;color:var(--mid);line-height:1.3}
+.int-btn:hover,.int-btn.on{background:var(--em);color:#fff;border-color:var(--em)}
+
+/* ─────────── SCREEN 3: SOCIAL FEED ─────────── */
+#s-feed{}
+.feed-topbar{background:var(--white);padding:0.9rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.feed-topbar-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--dark)}
+.search-pill{display:flex;align-items:center;gap:0.5rem;background:var(--sand);border-radius:30px;padding:0.45rem 0.9rem;font-size:0.8rem;color:var(--soft);cursor:pointer;border:1px solid var(--border)}
+.search-pill svg{width:14px;height:14px}
+
+.cat-scroll{display:flex;gap:0.5rem;padding:0.75rem 1.1rem;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-chip{flex-shrink:0;padding:0.4rem 0.85rem;border-radius:20px;font-size:0.78rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--mid);cursor:pointer;transition:all 0.18s;white-space:nowrap}
+.cat-chip:hover,.cat-chip.on{background:var(--em);border-color:var(--em);color:#fff}
+
+.post-card{margin:0 1.1rem 1rem;background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.post-header{display:flex;align-items:center;gap:0.6rem;padding:0.75rem 0.9rem 0.6rem}
+.avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0}
+.post-user{font-size:0.8rem;font-weight:600;color:var(--dark)}
+.post-time{font-size:0.7rem;color:var(--soft)}
+.post-photo{width:100%;aspect-ratio:4/3;display:block;background:var(--sand);flex-shrink:0}
+.post-body{padding:0.75rem 0.9rem}
+.post-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-bottom:0.45rem}
+.post-caption{font-size:0.83rem;color:var(--dark);font-weight:500;margin-bottom:0.65rem;line-height:1.4}
+.post-actions{display:flex;align-items:center;justify-content:space-between}
+.post-likes{display:flex;align-items:center;gap:0.3rem;font-size:0.8rem;font-weight:600;color:var(--red);cursor:pointer}
+.post-likes svg{width:15px;height:15px}
+.post-btns{display:flex;gap:0.4rem}
+
+/* ─────────── SCREEN 4: DISCOVERY MAP ─────────── */
+#s-map{}
+.map-topbar{background:var(--white);padding:0.85rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.map-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--dark);margin-bottom:0.5rem}
+.map-search{display:flex;align-items:center;gap:0.5rem;background:var(--sand);border-radius:var(--rsm);padding:0.5rem 0.8rem;border:1.5px solid var(--border)}
+.map-search svg{width:15px;height:15px;color:var(--soft);flex-shrink:0}
+.map-search input{border:none;background:transparent;font-family:'Be Vietnam Pro',sans-serif;font-size:0.85rem;color:var(--dark);outline:none;flex:1}
+.map-legend{display:flex;gap:0.5rem;padding:0.6rem 1.1rem;overflow-x:auto;scrollbar-width:none;background:var(--white);border-bottom:1px solid var(--border)}
+.map-legend::-webkit-scrollbar{display:none}
+.legend-item{display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:500;color:var(--mid);white-space:nowrap;flex-shrink:0}
+.pin-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.map-canvas{position:relative;flex:1;background:#f0ede6;min-height:380px;overflow:hidden}
+.map-svg{width:100%;height:100%;display:block}
+.map-pin{cursor:pointer;transition:transform 0.15s}
+.map-pin:hover{transform:scale(1.3)}
+
+/* PLACE BOTTOM SHEET */
+.bottom-sheet{position:absolute;bottom:-300px;left:0;right:0;background:var(--white);border-radius:20px 20px 0 0;padding:1rem 1.1rem 1.5rem;box-shadow:0 -8px 30px rgba(0,0,0,0.12);transition:bottom 0.3s ease;z-index:30}
+.bottom-sheet.open{bottom:0}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 0.9rem}
+.sheet-place-name{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:0.2rem}
+.sheet-addr{font-size:0.78rem;color:var(--soft);margin-bottom:0.75rem}
+.sheet-btns{display:flex;gap:0.5rem}
+
+/* ─────────── SCREEN 5: PLACE DETAIL ─────────── */
+#s-place{}
+.place-back{display:flex;align-items:center;gap:0.5rem;padding:0.9rem 1.1rem;background:var(--white);border-bottom:1px solid var(--border);cursor:pointer;font-size:0.85rem;font-weight:600;color:var(--em)}
+.place-back svg{width:18px;height:18px}
+.place-photo{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#c4a0d0,#8B4DB8);display:flex;align-items:center;justify-content:center}
+.place-info{padding:1rem 1.1rem 0.75rem;background:var(--white);border-bottom:1px solid var(--border)}
+.place-name{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--dark);margin-bottom:0.2rem}
+.place-type{font-size:0.78rem;color:var(--soft);margin-bottom:0.5rem}
+.place-addr-row{display:flex;align-items:center;gap:0.4rem;font-size:0.82rem;color:var(--mid);margin-bottom:0.8rem}
+.place-addr-row svg{width:14px;height:14px;color:var(--em);flex-shrink:0}
+.place-action-row{display:flex;gap:0.5rem}
+.place-posts{padding:1rem 1.1rem}
+.place-posts-title{font-size:0.85rem;font-weight:700;color:var(--dark);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.06em}
+.mini-post{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.85rem;padding-bottom:0.85rem;border-bottom:1px solid var(--border)}
+.mini-post:last-child{border-bottom:none;margin-bottom:0}
+.mini-post-thumb{width:60px;height:60px;border-radius:var(--rxs);background:var(--sand);flex-shrink:0;object-fit:cover;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mini-post-body{flex:1}
+.mini-post-user{font-size:0.75rem;font-weight:600;color:var(--dark)}
+.mini-post-text{font-size:0.78rem;color:var(--mid);line-height:1.4;margin:0.15rem 0}
+.mini-post-heart{font-size:0.72rem;color:var(--red)}
+
+/* ─────────── SCREEN 7: PERSONAL MAP LIST ─────────── */
+#s-mymap{}
+.mymap-header{padding:1.25rem 1.1rem 0.9rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.mymap-header h2{font-family:'Playfair Display',serif;font-size:1.2rem}
+.btn-icon{width:34px;height:34px;border-radius:50%;background:var(--em);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;flex-shrink:0}
+.btn-icon svg{width:16px;height:16px}
+.map-list{padding:1rem 1.1rem;display:flex;flex-direction:column;gap:0.65rem}
+.map-list-item{display:flex;align-items:center;justify-content:space-between;background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:0.9rem 1rem;cursor:pointer;transition:all 0.18s}
+.map-list-item:hover{border-color:var(--em);background:var(--em-pale)}
+.map-item-info{display:flex;flex-direction:column;gap:0.2rem}
+.map-item-name{font-size:0.9rem;font-weight:600;color:var(--dark)}
+.map-item-meta{font-size:0.75rem;color:var(--soft)}
+.map-item-arrow{color:var(--em)}
+.map-item-arrow svg{width:18px;height:18px}
+
+/* ─────────── SCREEN 8: MAP DETAIL ─────────── */
+#s-mapdetail{}
+.mapdetail-topbar{background:var(--white);padding:0.85rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.mapdetail-back{display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:600;color:var(--em);cursor:pointer;margin-bottom:0.6rem}
+.mapdetail-actions{display:flex;gap:0.4rem}
+.mapdetail-actions .btn{font-size:0.75rem;padding:0.45rem 0.85rem;border-radius:8px}
+.btn-suggest{background:var(--em);color:#fff}
+.btn-make{background:var(--sand);color:var(--dark);border:1.5px solid var(--border)}
+.btn-end{background:var(--pink-pale);color:var(--pink);border:1.5px solid var(--pink-light)}
+.mapdetail-canvas{position:relative;flex:1;min-height:420px;background:#e8e4dd;overflow:hidden}
+
+/* PIN MINI CARD */
+.pin-mini-card{position:absolute;bottom:12px;left:12px;right:12px;background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:0.85rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,0.1);display:none;z-index:10}
+.pin-mini-card.open{display:block}
+.pin-mini-name{font-size:0.92rem;font-weight:700;color:var(--dark);margin-bottom:0.15rem}
+.pin-mini-addr{font-size:0.75rem;color:var(--soft);margin-bottom:0.6rem}
+.pin-mini-btns{display:flex;gap:0.4rem;flex-wrap:wrap}
+
+/* ─────────── SCREEN END: TRIP SUMMARY ─────────── */
+#s-end{}
+.end-header{background:var(--em);padding:1.5rem 1.25rem;text-align:center}
+.end-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:0.3rem}
+.end-sub{font-size:0.82rem;color:rgba(255,255,255,0.7)}
+.end-body{padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.end-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem}
+.end-stat{background:var(--white);border-radius:var(--rsm);padding:0.75rem 0.5rem;text-align:center;border:1px solid var(--border)}
+.end-stat-num{font-size:1.3rem;font-weight:700;color:var(--em)}
+.end-stat-label{font-size:0.68rem;color:var(--soft);margin-top:0.1rem}
+.export-options{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.export-card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:1rem;text-align:center;cursor:pointer;transition:all 0.18s}
+.export-card:hover{border-color:var(--em);background:var(--em-pale)}
+.export-card-icon{width:44px;height:44px;border-radius:10px;background:var(--em-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem}
+.export-card-icon svg{width:22px;height:22px;color:var(--em)}
+.export-card-title{font-size:0.82rem;font-weight:700;color:var(--dark)}
+.export-card-desc{font-size:0.72rem;color:var(--soft);margin-top:0.15rem}
+
+/* ─────────── SCREEN 9: ME ─────────── */
+#s-me{}
+.me-header{background:linear-gradient(135deg,var(--em),var(--em2));padding:1.75rem 1.25rem 1.25rem;text-align:center}
+.me-avatar-ring{width:72px;height:72px;border-radius:50%;border:3px solid rgba(255,255,255,0.4);margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.15)}
+.me-avatar-inner{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700}
+.me-name{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.15rem}
+.me-handle{font-size:0.8rem;color:rgba(255,255,255,0.65)}
+.me-body{padding:1.1rem;display:flex;flex-direction:column;gap:0.7rem}
+.me-section-title{font-size:0.72rem;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:0.35rem}
+.me-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem}
+.me-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:1rem;cursor:pointer;transition:all 0.18s;display:flex;flex-direction:column;align-items:flex-start;gap:0.4rem}
+.me-card:hover{border-color:var(--em);background:var(--em-pale)}
+.me-card-icon{width:36px;height:36px;border-radius:8px;background:var(--em-pale);display:flex;align-items:center;justify-content:center}
+.me-card-icon svg{width:18px;height:18px;color:var(--em)}
+.me-card-title{font-size:0.85rem;font-weight:700;color:var(--dark)}
+.me-card-desc{font-size:0.72rem;color:var(--soft)}
+
+/* ─────────── SCREEN 9.1: RESERVATIONS ─────────── */
+#s-reservations{}
+.res-topbar{background:var(--white);padding:0.9rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.7rem;cursor:pointer}
+.res-topbar svg{width:18px;height:18px;color:var(--em)}
+.res-topbar-title{font-size:1rem;font-weight:700;color:var(--dark)}
+.res-body{padding:1.1rem;display:flex;flex-direction:column;gap:0.75rem}
+.res-item{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.res-item-header{background:var(--pink-pale);padding:0.65rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--pink-light)}
+.res-item-name{font-size:0.88rem;font-weight:700;color:var(--pink)}
+.res-reschedule{background:none;border:1px solid var(--pink-light);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--pink);font-size:0.8rem;flex-shrink:0}
+.res-item-body{padding:0.75rem 1rem;display:flex;gap:0.5rem}
+.res-select{flex:1;display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--border);border-radius:var(--rsm);padding:0.5rem 0.75rem;background:var(--white);font-size:0.8rem;color:var(--dark);cursor:pointer;transition:border-color 0.2s}
+.res-select:hover{border-color:var(--em2)}
+
+/* ROUTE MODE overlays */
+.route-overlay{position:absolute;inset:0;background:rgba(13,92,74,0.05);z-index:5;pointer-events:none}
+.route-label{position:absolute;background:var(--em);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;pointer-events:none;transform:translate(-50%,-50%)}
+.route-path{stroke:var(--em);stroke-width:2.5;stroke-dasharray:6 4;fill:none;opacity:0.7}
+.make-plus{position:absolute;cursor:pointer;background:var(--white);border:2px solid var(--em);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;color:var(--em);font-size:1rem;font-weight:700;transform:translate(-50%,-50%);transition:all 0.15s;pointer-events:all;z-index:10}
+.make-plus:hover{background:var(--em);color:#fff}
+.make-num{position:absolute;background:var(--pink);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;pointer-events:none;transform:translate(-50%,-50%);z-index:11}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.screen.active>*{animation:fadeIn 0.25s ease both}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="phone-notch"><div class="phone-notch-inner"></div></div>
+  <div class="phone-body">
+
+  <!-- ══════════ S1: SPLASH ══════════ -->
+  <div class="screen active" id="s-splash">
+    <div class="splash-deco"></div>
+    <div class="splash-inner">
+      <div class="splash-logo-ring">
+        <div class="splash-logo-inner">VN</div>
+      </div>
+      <div>
+        <div class="splash-title">Vietnam<br><em>360°</em></div>
+      </div>
+      <div class="splash-badge">✦ INSIGHT</div>
+      <p class="splash-sub">Hidden gems, local stories, niche experiences — curated just for you.</p>
+      <button class="btn btn-primary" style="background:var(--gold);padding:0.85rem 2.5rem;font-size:0.95rem;border-radius:30px;margin-top:0.5rem" onclick="goTo('s-onboard')">Get Started →</button>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0.5rem">Already have an account? <span style="color:var(--gold2);cursor:pointer">Sign in</span></p>
+    </div>
+  </div>
+
+  <!-- ══════════ S2: ONBOARDING ══════════ -->
+  <div class="screen" id="s-onboard">
+    <div class="onboard-header">
+      <div class="onboard-step">Step 1 of 2 — Tell us about yourself</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem">Personalize your<br>Vietnam experience</h2>
+    </div>
+    <div class="onboard-body">
+      <div>
+        <div class="field-label">Age range</div>
+        <div class="select-field" id="sel-age" onclick="cycleSelect(this,['Under 18','18 – 24','25 – 34','35 – 49','50+'])">Select age range <span class="chevron">▾</span></div>
+      </div>
+      <div>
+        <div class="field-label">Nationality</div>
+        <div class="select-field" id="sel-nat" onclick="cycleSelect(this,['American','French','Korean','Japanese','Australian','Vietnamese','Other'])">Select nationality <span class="chevron">▾</span></div>
+      </div>
+      <div>
+        <div class="field-label">Destination</div>
+        <div class="select-field" id="sel-place" onclick="cycleSelect(this,['Ho Chi Minh City','Hà Nội','Đà Nẵng','Hội An','Nha Trang','Phú Quốc','Sapa'])">Choose a city <span class="chevron">▾</span></div>
+      </div>
+      <div>
+        <div class="field-label">Travel purpose</div>
+        <div class="select-field" id="sel-purpose" onclick="cycleSelect(this,['Food exploration','Shopping','Photography','Culture & History','Trekking & Nature','Nightlife','Wellness'])">What brings you? <span class="chevron">▾</span></div>
+      </div>
+      <div style="margin-top:0.25rem">
+        <div class="field-label">I'm interested in</div>
+        <div class="interest-grid">
+          <button class="int-btn" onclick="this.classList.toggle('on')">🍜 Food</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">🛍️ Shopping</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">📸 Photography</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">🏖️ Beaches</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">🎭 Culture</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">☕ Cafes</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">🥾 Trekking</button>
+          <button class="int-btn" onclick="this.classList.toggle('on')">💎 Jewelry</button>
+          <button class="int-btn on" onclick="this.classList.toggle('on')">👗 Thrift</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:0.5rem;padding:0.85rem;border-radius:var(--rsm);font-size:0.95rem" onclick="goTo('s-feed');setupNav()">Build My Itinerary ✦</button>
+    </div>
+  </div>
+
+  <!-- ══════════ S3: SOCIAL FEED ══════════ -->
+  <div class="screen" id="s-feed">
+    <div class="feed-topbar">
+      <div class="feed-topbar-title">Discover <span style="color:var(--em)">Vietnam</span></div>
+      <div class="search-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search places…
+      </div>
+    </div>
+    <div class="cat-scroll">
+      <div class="cat-chip on" onclick="toggleChip(this)">All</div>
+      <div class="cat-chip" onclick="toggleChip(this)">🍜 Food</div>
+      <div class="cat-chip" onclick="toggleChip(this)">👗 Thrift</div>
+      <div class="cat-chip" onclick="toggleChip(this)">☕ Cafes</div>
+      <div class="cat-chip" onclick="toggleChip(this)">📸 Photo spots</div>
+      <div class="cat-chip" onclick="toggleChip(this)">🏖️ Beaches</div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding-bottom:0.5rem">
+      <!-- Post 1 -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:#7D3C98">SA</div>
+          <div style="flex:1"><div class="post-user">saigon_aesthetic</div><div class="post-time">2 hours ago</div></div>
+          <span class="tag tag-hot">HOT 🔥</span>
+        </div>
+        <svg class="post-photo" viewBox="0 0 360 270" xmlns="http://www.w3.org/2000/svg">
+          <rect width="360" height="270" fill="#E8D5F5"/>
+          <rect x="20" y="60" width="80" height="130" rx="4" fill="#9B59B6"/>
+          <rect x="30" y="72" width="24" height="28" rx="2" fill="#F0E0FF"/>
+          <rect x="60" y="72" width="24" height="28" rx="2" fill="#F0E0FF"/>
+          <rect x="30" y="110" width="24" height="28" rx="2" fill="#DDB8F5"/>
+          <rect x="60" y="110" width="24" height="28" rx="2" fill="#DDB8F5"/>
+          <rect x="140" y="40" width="80" height="160" rx="4" fill="#8E44AD"/>
+          <rect x="152" y="52" width="24" height="32" rx="2" fill="#F0E0FF"/>
+          <rect x="184" y="52" width="24" height="32" rx="2" fill="#F0E0FF"/>
+          <rect x="152" y="96" width="24" height="32" rx="2" fill="#DDB8F5"/>
+          <rect x="184" y="96" width="24" height="32" rx="2" fill="#DDB8F5"/>
+          <rect x="152" y="140" width="56" height="38" rx="2" fill="#7D3C98"/>
+          <rect x="270" y="70" width="70" height="120" rx="4" fill="#7D3C98"/>
+          <rect x="280" y="82" width="22" height="26" rx="2" fill="#E8D5F0"/>
+          <rect x="308" y="82" width="22" height="26" rx="2" fill="#E8D5F0"/>
+          <circle cx="50" cy="30" r="12" fill="#FFB6C1" opacity="0.7"/>
+          <circle cx="200" cy="20" r="10" fill="#DDA0DD" opacity="0.6"/>
+          <circle cx="320" cy="40" r="8" fill="#EE82EE" opacity="0.5"/>
+          <text x="180" y="250" text-anchor="middle" font-size="11" fill="#6B3A7A" font-weight="600">Vintage Apt Complex · District 3</text>
+        </svg>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag tag-em">#IndieShops</span><span class="tag tag-pink">#GenZ</span><span class="tag tag-gold">#Hidden</span></div>
+          <div class="post-caption">Hidden boutiques inside this Saigon apartment — indie fashion you won't find anywhere else 🛍️</div>
+          <div class="post-actions">
+            <div class="post-likes"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>7.2k</div>
+            <div class="post-btns">
+              <button class="btn btn-pink btn-sm" onclick="openPlace('An An Thrift Shop','Apt 42, 185 Nguyễn Đình Chiểu, District 3','thrift')">Book now</button>
+              <button class="btn btn-ghost btn-sm" onclick="addToMap('An An Thrift Shop')">+ My map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Post 2 -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:#B84A0A">MK</div>
+          <div style="flex:1"><div class="post-user">minh_khoa_eats</div><div class="post-time">5 hours ago</div></div>
+          <span class="tag tag-em">#Authentic</span>
+        </div>
+        <svg class="post-photo" viewBox="0 0 360 270" xmlns="http://www.w3.org/2000/svg">
+          <rect width="360" height="270" fill="#FFF3E0"/>
+          <rect x="50" y="90" width="260" height="110" rx="8" fill="#D4A056"/>
+          <rect x="70" y="105" width="220" height="80" rx="6" fill="#C4894A"/>
+          <ellipse cx="180" cy="145" rx="90" ry="22" fill="#8B4513"/>
+          <ellipse cx="180" cy="138" rx="80" ry="18" fill="#A0522D"/>
+          <ellipse cx="180" cy="125" rx="55" ry="9" fill="#228B22" opacity="0.7"/>
+          <circle cx="145" cy="123" r="7" fill="#FF4500" opacity="0.8"/>
+          <circle cx="215" cy="123" r="7" fill="#FF4500" opacity="0.8"/>
+          <circle cx="180" cy="118" r="5" fill="#FFD700" opacity="0.9"/>
+          <text x="180" y="250" text-anchor="middle" font-size="11" fill="#6B3800" font-weight="600">Local Cooking Class · Hội An</text>
+        </svg>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag tag-em">#LocalDelicacy</span><span class="tag tag-gold">#Cooking</span></div>
+          <div class="post-caption">Mì Quảng cooking class in a family kitchen — the most authentic 3 hours of my trip 🍜</div>
+          <div class="post-actions">
+            <div class="post-likes"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>3k</div>
+            <div class="post-btns">
+              <button class="btn btn-pink btn-sm">Book now</button>
+              <button class="btn btn-ghost btn-sm">+ My map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Post 3 -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:#0D5C4A">VT</div>
+          <div style="flex:1"><div class="post-user">vietnam_trails</div><div class="post-time">Yesterday</div></div>
+          <span class="tag tag-hot">EPIC</span>
+        </div>
+        <svg class="post-photo" viewBox="0 0 360 270" xmlns="http://www.w3.org/2000/svg">
+          <rect width="360" height="270" fill="#B3E5FC"/>
+          <rect y="195" width="360" height="75" fill="#29B6F6"/>
+          <polygon points="0,148 75,55 150,148" fill="#37474F"/>
+          <polygon points="75,148 150,48 225,148" fill="#455A64"/>
+          <polygon points="185,148 260,65 335,148" fill="#37474F"/>
+          <rect y="192" width="360" height="12" fill="#81D4FA" opacity="0.6"/>
+          <circle cx="310" cy="38" r="22" fill="#FFF9C4" opacity="0.9"/>
+          <path d="M30 115 Q58 102 85 112" stroke="white" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <path d="M260 85 Q295 73 325 84" stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.5"/>
+        </svg>
+        <div class="post-body">
+          <div class="post-tags"><span class="tag tag-em">#Nature</span><span class="tag tag-em">#Sapa</span></div>
+          <div class="post-caption">Sunrise trek to Fansipan's ridge — complete guide for first-timers 🏔️ Worth every step.</div>
+          <div class="post-actions">
+            <div class="post-likes"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>6.8k</div>
+            <div class="post-btns">
+              <button class="btn btn-pink btn-sm">Book now</button>
+              <button class="btn btn-ghost btn-sm">+ My map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom nav injected by JS -->
+  </div>
+
+  <!-- ══════════ S4: DISCOVERY MAP ══════════ -->
+  <div class="screen" id="s-map">
+    <div class="map-topbar">
+      <div class="map-title">Discovery Map</div>
+      <div class="map-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Tên thành phố / district…">
+      </div>
+    </div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="pin-dot" style="background:#E24B4A"></div>Nhà hàng</div>
+      <div class="legend-item"><div class="pin-dot" style="background:#F0C040"></div>Cafe</div>
+      <div class="legend-item"><div class="pin-dot" style="background:#378ADD"></div>Workshop</div>
+      <div class="legend-item"><div class="pin-dot" style="background:#1D9E75"></div>Thrift Shop</div>
+      <div class="legend-item"><div class="pin-dot" style="background:#1a1a1a;border:2px solid var(--em)"></div>YOU</div>
+    </div>
+    <div class="map-canvas" id="map-canvas">
+      <svg id="map-svg" width="100%" height="100%" viewBox="0 0 360 380" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <!-- Streets -->
+        <rect width="360" height="380" fill="#EDE8DF"/>
+        <path d="M0 80 Q90 75 180 80 Q270 85 360 80" stroke="#D5CFC4" stroke-width="16" fill="none"/>
+        <path d="M0 180 Q90 175 180 180 Q270 185 360 180" stroke="#D5CFC4" stroke-width="14" fill="none"/>
+        <path d="M0 280 Q90 275 180 280 Q270 285 360 280" stroke="#D5CFC4" stroke-width="12" fill="none"/>
+        <path d="M80 0 Q78 100 80 200 Q82 300 80 380" stroke="#D5CFC4" stroke-width="14" fill="none"/>
+        <path d="M200 0 Q198 100 200 200 Q202 300 200 380" stroke="#D5CFC4" stroke-width="12" fill="none"/>
+        <path d="M300 0 Q298 120 300 230 Q302 320 300 380" stroke="#D5CFC4" stroke-width="10" fill="none"/>
+        <!-- Blocks -->
+        <rect x="90" y="90" width="100" height="80" rx="4" fill="#D8D2C8"/>
+        <rect x="210" y="90" width="80" height="80" rx="4" fill="#D8D2C8"/>
+        <rect x="90" y="190" width="100" height="80" rx="4" fill="#D8D2C8"/>
+        <rect x="210" y="190" width="80" height="80" rx="4" fill="#D8D2C8"/>
+        <rect x="10" y="90" width="60" height="170" rx="4" fill="#D8D2C8"/>
+        <rect x="90" y="290" width="100" height="80" rx="4" fill="#D8D2C8"/>
+        <rect x="210" y="290" width="130" height="80" rx="4" fill="#D8D2C8"/>
+        <rect x="310" y="90" width="40" height="280" rx="4" fill="#D8D2C8"/>
+      </svg>
+      <!-- Pins rendered by JS -->
+      <div id="map-pins"></div>
+      <!-- Bottom sheet -->
+      <div class="bottom-sheet" id="map-sheet">
+        <div class="sheet-handle"></div>
+        <div style="display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.6rem">
+          <div id="sheet-type-dot" style="width:12px;height:12px;border-radius:50%;margin-top:4px;flex-shrink:0;background:var(--em)"></div>
+          <div>
+            <div class="sheet-place-name" id="sheet-name">An An Thrift Shop</div>
+            <div class="sheet-addr" id="sheet-addr">Apt 42, 185 Nguyễn Đình Chiểu, D3</div>
+          </div>
+        </div>
+        <div class="sheet-btns">
+          <button class="btn btn-primary btn-sm" onclick="openPlace(currentPin.name,currentPin.addr,currentPin.type)">View Details</button>
+          <button class="btn btn-secondary btn-sm" onclick="addToMap(currentPin.name)">+ Add to my map</button>
+          <button class="btn btn-ghost btn-sm" onclick="closeSheet()">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ S5: PLACE DETAIL ══════════ -->
+  <div class="screen" id="s-place">
+    <div class="place-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </div>
+    <svg id="place-photo" width="100%" height="200" viewBox="0 0 390 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="390" height="200" fill="#E8D5F5"/>
+      <rect x="30" y="30" width="90" height="140" rx="4" fill="#9B59B6"/>
+      <rect x="150" y="20" width="90" height="160" rx="4" fill="#8E44AD"/>
+      <rect x="270" y="40" width="90" height="130" rx="4" fill="#7D3C98"/>
+      <rect x="40" y="42" width="26" height="30" rx="2" fill="#F0E0FF"/>
+      <rect x="72" y="42" width="26" height="30" rx="2" fill="#F0E0FF"/>
+      <rect x="40" y="82" width="26" height="30" rx="2" fill="#DDB8F5"/>
+      <rect x="72" y="82" width="26" height="30" rx="2" fill="#DDB8F5"/>
+    </svg>
+    <div class="place-info">
+      <div class="place-name" id="detail-name">An An Thrift Shop</div>
+      <div class="place-type" id="detail-type">Thrift Shop · District 3, HCMC</div>
+      <div class="place-addr-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="detail-addr">Apt 42, 185 Nguyễn Đình Chiểu, D3</span>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.8rem">
+        <span class="tag tag-em">#Vintage</span>
+        <span class="tag tag-em">#IndieShops</span>
+        <span class="tag tag-pink">#GenZ</span>
+      </div>
+      <div class="place-action-row">
+        <button class="btn btn-primary btn-sm">Book now</button>
+        <button class="btn btn-secondary btn-sm" onclick="addToMap(document.getElementById('detail-name').textContent)">+ Add to my map</button>
+        <button class="btn btn-ghost btn-sm" onclick="goTo('s-place-posts')">Community posts ›</button>
+      </div>
+    </div>
+    <div class="place-posts">
+      <div class="place-posts-title">Posts about this place</div>
+      <div class="mini-post">
+        <div class="mini-post-thumb">
+          <svg width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" fill="#DDB8F5"/><rect x="8" y="10" width="18" height="40" rx="2" fill="#8E44AD"/><rect x="34" y="6" width="18" height="44" rx="2" fill="#7D3C98"/></svg>
+        </div>
+        <div class="mini-post-body">
+          <div class="mini-post-user">saigon_aesthetic · 2h ago</div>
+          <div class="mini-post-text">The second floor has the best vintage denim jackets! Staff are super helpful 💜</div>
+          <div class="mini-post-heart">♥ 342 likes</div>
+        </div>
+      </div>
+      <div class="mini-post">
+        <div class="mini-post-thumb">
+          <svg width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" fill="#E8D5F0"/><circle cx="30" cy="25" r="15" fill="#9B59B6" opacity="0.6"/><rect x="10" y="40" width="40" height="10" rx="3" fill="#7D3C98" opacity="0.5"/></svg>
+        </div>
+        <div class="mini-post-body">
+          <div class="mini-post-user">gen_z_wanderer · 1d ago</div>
+          <div class="mini-post-text">Perfect for a Saturday afternoon. Prices are super reasonable for the quality!</div>
+          <div class="mini-post-heart">♥ 189 likes</div>
+        </div>
+      </div>
+      <div class="mini-post">
+        <div class="mini-post-thumb">
+          <svg width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" fill="#F0E0FF"/><rect x="5" y="15" width="50" height="30" rx="3" fill="#C39BD3"/><rect x="15" y="20" width="14" height="20" rx="2" fill="#8E44AD"/><rect x="35" y="18" width="14" height="22" rx="2" fill="#7D3C98"/></svg>
+        </div>
+        <div class="mini-post-body">
+          <div class="mini-post-user">local_explorer · 3d ago</div>
+          <div class="mini-post-text">Hidden gem! The indie jewelry section on floor 3 is incredible 💍</div>
+          <div class="mini-post-heart">♥ 97 likes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ S7: PERSONAL MAP LIST ══════════ -->
+  <div class="screen" id="s-mymap">
+    <div class="mymap-header">
+      <h2>My Maps</h2>
+      <button class="btn-icon" title="New map" onclick="addNewMap()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div class="map-list" id="map-list">
+      <div class="map-list-item" onclick="goTo('s-mapdetail')">
+        <div class="map-item-info">
+          <div class="map-item-name">Saigon Indie Spots 🛍️</div>
+          <div class="map-item-meta">5 pins · Ho Chi Minh City</div>
+        </div>
+        <div class="map-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+      <div class="map-list-item" onclick="goTo('s-mapdetail')">
+        <div class="map-item-info">
+          <div class="map-item-name">Food Tour Hội An 🍜</div>
+          <div class="map-item-meta">3 pins · Hội An</div>
+        </div>
+        <div class="map-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ S8: MAP DETAIL ══════════ -->
+  <div class="screen" id="s-mapdetail">
+    <div class="mapdetail-topbar">
+      <div class="mapdetail-back" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Saigon Indie Spots
+      </div>
+      <div class="mapdetail-actions">
+        <button class="btn btn-suggest" id="btn-suggest" onclick="setRouteMode('suggest')">Suggest route</button>
+        <button class="btn btn-make" id="btn-make" onclick="setRouteMode('make')">Make my route</button>
+        <button class="btn btn-end" id="btn-end" onclick="goTo('s-end')">END</button>
+      </div>
+    </div>
+    <div class="mapdetail-canvas" id="mapdetail-canvas">
+      <svg width="100%" height="100%" viewBox="0 0 390 430" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0">
+        <rect width="390" height="430" fill="#EDE8DF"/>
+        <path d="M0 90 Q100 85 195 90 Q290 95 390 90" stroke="#D5CFC4" stroke-width="18" fill="none"/>
+        <path d="M0 200 Q100 195 195 200 Q290 205 390 200" stroke="#D5CFC4" stroke-width="15" fill="none"/>
+        <path d="M0 310 Q100 305 195 310 Q290 315 390 310" stroke="#D5CFC4" stroke-width="13" fill="none"/>
+        <path d="M90 0 Q88 110 90 220 Q92 330 90 430" stroke="#D5CFC4" stroke-width="15" fill="none"/>
+        <path d="M220 0 Q218 110 220 220 Q222 330 220 430" stroke="#D5CFC4" stroke-width="13" fill="none"/>
+        <path d="M330 0 Q328 130 330 250 Q332 360 330 430" stroke="#D5CFC4" stroke-width="11" fill="none"/>
+        <rect x="100" y="100" width="110" height="90" rx="4" fill="#D8D2C8"/>
+        <rect x="230" y="100" width="90" height="90" rx="4" fill="#D8D2C8"/>
+        <rect x="100" y="210" width="110" height="90" rx="4" fill="#D8D2C8"/>
+        <rect x="230" y="210" width="90" height="90" rx="4" fill="#D8D2C8"/>
+        <rect x="100" y="320" width="110" height="90" rx="4" fill="#D8D2C8"/>
+        <rect x="230" y="320" width="90" height="90" rx="4" fill="#D8D2C8"/>
+        <rect x="10" y="100" width="70" height="200" rx="4" fill="#D8D2C8"/>
+        <rect x="340" y="100" width="40" height="300" rx="4" fill="#D8D2C8"/>
+        <!-- Route SVG overlay (hidden by default) -->
+        <polyline id="route-line" points="" class="route-path" style="display:none"/>
+      </svg>
+      <!-- Pins -->
+      <div id="mapdetail-pins"></div>
+      <!-- Route labels -->
+      <div id="route-labels"></div>
+      <!-- Make route plus buttons -->
+      <div id="make-plus-btns" style="display:none"></div>
+      <!-- Pin mini card -->
+      <div class="pin-mini-card" id="pin-mini-card">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.6rem">
+          <div id="mini-type-dot" style="width:10px;height:10px;border-radius:50%;background:var(--em);flex-shrink:0"></div>
+          <div class="pin-mini-name" id="mini-name">An An Thrift Shop</div>
+        </div>
+        <div class="pin-mini-addr" id="mini-addr">Apt 42, 185 Nguyễn Đình Chiểu, D3</div>
+        <div class="pin-mini-btns">
+          <button class="btn btn-primary btn-sm" onclick="openPlace(activePin.name,activePin.addr,activePin.type)">View details</button>
+          <button class="btn btn-secondary btn-sm">Book now</button>
+          <span class="tag tag-em" style="cursor:pointer" id="mini-visited-btn" onclick="toggleVisited()">□ Đã đến</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ S-END: TRIP SUMMARY ══════════ -->
+  <div class="screen" id="s-end">
+    <div class="place-back" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to map
+    </div>
+    <div class="end-header">
+      <div class="end-title">Let's take a look at your trip! 🎉</div>
+      <div class="end-sub">Here's a summary of your Saigon adventure</div>
+    </div>
+    <div class="end-body">
+      <div class="end-stat-row">
+        <div class="end-stat"><div class="end-stat-num">5</div><div class="end-stat-label">Places saved</div></div>
+        <div class="end-stat"><div class="end-stat-num">2</div><div class="end-stat-label">Visited</div></div>
+        <div class="end-stat"><div class="end-stat-num">4.2km</div><div class="end-stat-label">Total route</div></div>
+      </div>
+      <h3 style="font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--soft)">Export your trip</h3>
+      <div class="export-options">
+        <div class="export-card" onclick="exportTrip('photo')">
+          <div class="export-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="export-card-title">Photo map</div>
+          <div class="export-card-desc">Save as image</div>
+        </div>
+        <div class="export-card" onclick="exportTrip('itinerary')">
+          <div class="export-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="export-card-title">Itinerary PDF</div>
+          <div class="export-card-desc">Full trip summary</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:0.85rem;border-radius:var(--rsm);font-size:0.95rem" onclick="goTo('s-feed');setupNav()">Back to Discover ✦</button>
+    </div>
+  </div>
+
+  <!-- ══════════ S9: ME ══════════ -->
+  <div class="screen" id="s-me">
+    <div class="me-header">
+      <div class="me-avatar-ring"><div class="me-avatar-inner">AN</div></div>
+      <div class="me-name">An Nguyen</div>
+      <div class="me-handle">@an_explores · Ho Chi Minh City</div>
+    </div>
+    <div class="me-body">
+      <div>
+        <div class="me-section-title">Account</div>
+        <div class="me-card-grid">
+          <div class="me-card">
+            <div class="me-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="me-card-title">My Profile</div>
+            <div class="me-card-desc">Edit info & preferences</div>
+          </div>
+          <div class="me-card" onclick="goTo('s-reservations')">
+            <div class="me-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="me-card-title">My Reservations</div>
+            <div class="me-card-desc">Upcoming bookings</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="me-section-title">My activity</div>
+        <div class="me-card-grid">
+          <div class="me-card" onclick="goTo('s-mymap')">
+            <div class="me-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
+            <div class="me-card-title">My Maps</div>
+            <div class="me-card-desc">2 collections</div>
+          </div>
+          <div class="me-card">
+            <div class="me-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+            <div class="me-card-title">Saved Places</div>
+            <div class="me-card-desc">12 favourites</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ S9.1: RESERVATIONS ══════════ -->
+  <div class="screen" id="s-reservations">
+    <div class="res-topbar" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      <div class="res-topbar-title">My Reservations</div>
+    </div>
+    <div class="res-body">
+      <div class="res-item">
+        <div class="res-item-header">
+          <div class="res-item-name" onclick="openPlace('An An Thrift Shop','Apt 42, 185 Nguyễn Đình Chiểu, D3','thrift')">• An An Thrift Shop ›</div>
+          <button class="res-reschedule" title="Reschedule">↺</button>
+        </div>
+        <div class="res-item-body">
+          <div class="res-select" onclick="cycleResSelect(this,['Morning (9–12)','Afternoon (13–17)','Evening (18–21)'])">Time ▾</div>
+          <div class="res-select" onclick="cycleResSelect(this,['Jun 13','Jun 14','Jun 15','Jun 16'])">Date ▾</div>
+        </div>
+      </div>
+      <div class="res-item">
+        <div class="res-item-header">
+          <div class="res-item-name">• Mia's Nails Salon ›</div>
+          <button class="res-reschedule" title="Reschedule">↺</button>
+        </div>
+        <div class="res-item-body">
+          <div class="res-select" onclick="cycleResSelect(this,['Morning (9–12)','Afternoon (13–17)'])">Time ▾</div>
+          <div class="res-select" onclick="cycleResSelect(this,['Jun 14','Jun 15','Jun 16'])">Date ▾</div>
+        </div>
+      </div>
+      <div class="res-item">
+        <div class="res-item-header">
+          <div class="res-item-name">• Local Cooking Class ›</div>
+          <button class="res-reschedule" title="Reschedule">↺</button>
+        </div>
+        <div class="res-item-body">
+          <div class="res-select" onclick="cycleResSelect(this,['Morning (9–12)','Afternoon (13–17)'])">Time ▾</div>
+          <div class="res-select" onclick="cycleResSelect(this,['Jun 15','Jun 16','Jun 17'])">Date ▾</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /phone-body -->
+
+  <!-- BOTTOM NAV (outside screens, sticky) -->
+  <div class="bottom-nav" id="bottom-nav" style="display:none">
+    <div class="nav-item active" id="nav-feed" onclick="navGo('s-feed','nav-feed')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Discover
+    </div>
+    <div class="nav-item" id="nav-map" onclick="navGo('s-map','nav-map')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+      Map
+    </div>
+    <div class="nav-item" id="nav-mymap" onclick="navGo('s-mymap','nav-mymap')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      My Maps
+    </div>
+    <div class="nav-item" id="nav-me" onclick="navGo('s-me','nav-me')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Me
+    </div>
+  </div>
+</div><!-- /phone -->
+
+<script>
+// ── STATE ──────────────────────────────────────────────
+let history = [];
+let currentNav = 'nav-feed';
+let currentPin = {};
+let activePin = {};
+let routeMode = null;
+let mapMade = [];
+const selectCycles = {};
+const resCycles = {};
+
+// ── NAVIGATION ─────────────────────────────────────────
+function goTo(id) {
+  const current = document.querySelector('.screen.active');
+  if (current) { history.push(current.id); current.classList.remove('active'); }
+  document.getElementById(id).classList.add('active');
+  // Scroll to top
+  document.getElementById(id).scrollTop = 0;
+}
+function goBack() {
+  if (!history.length) return;
+  const prev = history.pop();
+  document.querySelector('.screen.active').classList.remove('active');
+  document.getElementById(prev).classList.add('active');
+}
+function setupNav() { document.getElementById('bottom-nav').style.display='flex'; }
+function navGo(screenId, navId) {
+  history = [];
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById(navId).classList.add('active');
+  goTo(screenId);
+}
+
+// ── DROPDOWNS ──────────────────────────────────────────
+function cycleSelect(el, options) {
+  const key = el.id;
+  if (!selectCycles[key]) selectCycles[key] = 0;
+  else selectCycles[key] = (selectCycles[key]+1) % options.length;
+  const val = options[selectCycles[key]];
+  el.innerHTML = val + ' <span class="chevron">▾</span>';
+  el.classList.add('selected');
+}
+function cycleResSelect(el, options) {
+  const key = el.textContent;
+  if (!resCycles[key]) resCycles[key] = 0;
+  else resCycles[key] = (resCycles[key]+1) % options.length;
+  el.textContent = options[resCycles[key]] + ' ▾';
+}
+function toggleChip(el) {
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ── MAP PINS DATA ──────────────────────────────────────
+const discoveryPins = [
+  {id:'p1',x:45,y:55,color:'#E24B4A',name:'Phở Bà Bảy',addr:'12 Lý Tự Trọng, D1',type:'restaurant'},
+  {id:'p2',x:72,y:68,color:'#F0C040',name:'Cà Phê Phố Xưa',addr:'88 Pasteur, D3',type:'cafe'},
+  {id:'p3',x:33,y:62,color:'#378ADD',name:'Clay & Co. Workshop',addr:'47 Trần Quốc Thảo, D3',type:'workshop'},
+  {id:'p4',x:58,y:42,color:'#1D9E75',name:'An An Thrift Shop',addr:'Apt 42, 185 Nguyễn Đình Chiểu, D3',type:'thrift'},
+  {id:'p5',x:80,y:30,color:'#E24B4A',name:'Cơm Tấm Bà Út',addr:'35 Võ Văn Tần, D3',type:'restaurant'},
+  {id:'p6',x:22,y:75,color:'#F0C040',name:'Nhà Nấu Café',addr:'11 Lê Văn Sĩ, D3',type:'cafe'},
+  {id:'p7',x:65,y:78,color:'#1D9E75',name:'Mia\'s Nails Salon',addr:'Apt 3C, 47 Nguyễn Thị Minh Khai',type:'thrift'},
+  {id:'p8',x:88,y:60,color:'#378ADD',name:'Hoa Workshop',addr:'21 Cách Mạng Tháng 8, D10',type:'workshop'},
+  {id:'p9',x:12,y:38,color:'#1a1a1a',name:'YOU',addr:'Current location',type:'you'},
+];
+
+const myMapPins = [
+  {id:'m1',x:20,y:25,color:'#F0C040',name:'Cà Phê Phố Xưa',addr:'88 Pasteur, D3',type:'cafe'},
+  {id:'m2',x:65,y:20,color:'#1D9E75',name:'An An Thrift Shop',addr:'Apt 42, 185 Nguyễn Đình Chiểu',type:'thrift'},
+  {id:'m3',x:80,y:55,color:'#E24B4A',name:'Phở Bà Bảy',addr:'12 Lý Tự Trọng, D1',type:'restaurant'},
+  {id:'m4',x:35,y:65,color:'#1D9E75',name:'Mia\'s Nails',addr:'47 Nguyễn Thị Minh Khai',type:'thrift'},
+  {id:'m5',x:55,y:80,color:'#378ADD',name:'Clay & Co.',addr:'47 Trần Quốc Thảo, D3',type:'workshop'},
+  {id:'m6',x:12,y:88,color:'#1a1a1a',name:'YOU',addr:'Current location',type:'you'},
+];
+
+function renderPins(pins, containerId, canvas, clickFn) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  const rect = document.getElementById(canvas==='map-canvas'?'map-canvas':'mapdetail-canvas').getBoundingClientRect();
+  const W = rect.width || 360, H = rect.height || 380;
+  pins.forEach(p => {
+    const el = document.createElement('div');
+    const isYou = p.type==='you';
+    el.style.cssText = `position:absolute;left:${p.x}%;top:${p.y}%;transform:translate(-50%,-100%);cursor:${isYou?'default':'pointer'};z-index:5`;
+    el.innerHTML = isYou
+      ? `<div style="width:14px;height:14px;border-radius:50%;background:#1a1a1a;border:3px solid white;box-shadow:0 0 0 4px rgba(26,26,26,0.25)"></div>`
+      : `<svg width="24" height="30" viewBox="0 0 24 30" style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))"><path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 18 12 18s12-9 12-18C24 5.4 18.6 0 12 0z" fill="${p.color}"/><circle cx="12" cy="12" r="5" fill="white" opacity="0.85"/></svg>`;
+    if (!isYou) el.onclick = () => clickFn(p);
+    c.appendChild(el);
+  });
+}
+
+// ── DISCOVERY MAP ──────────────────────────────────────
+let mapReady = false;
+function initDiscoveryMap() {
+  if (mapReady) return;
+  mapReady = true;
+  renderPins(discoveryPins,'map-pins','map-canvas', p => {
+    currentPin = p;
+    document.getElementById('sheet-name').textContent = p.name;
+    document.getElementById('sheet-addr').textContent = p.addr;
+    document.getElementById('sheet-type-dot').style.background = p.color;
+    document.getElementById('map-sheet').classList.add('open');
+  });
+}
+function closeSheet() { document.getElementById('map-sheet').classList.remove('open'); }
+
+// Watch for map screen becoming active
+const observer = new MutationObserver(() => {
+  if (document.getElementById('s-map').classList.contains('active')) initDiscoveryMap();
+  if (document.getElementById('s-mapdetail').classList.contains('active')) initMyMapPins();
+});
+observer.observe(document.getElementById('s-map'), {attributes:true,attributeFilter:['class']});
+observer.observe(document.getElementById('s-mapdetail'), {attributes:true,attributeFilter:['class']});
+
+// ── MY MAP DETAIL ──────────────────────────────────────
+let myMapReady = false;
+function initMyMapPins() {
+  renderPins(myMapPins,'mapdetail-pins','mapdetail-canvas', p => {
+    activePin = p;
+    document.getElementById('mini-name').textContent = p.name;
+    document.getElementById('mini-addr').textContent = p.addr;
+    document.getElementById('mini-type-dot').style.background = p.color;
+    document.getElementById('mini-visited-btn').textContent = '□ Đã đến';
+    document.getElementById('pin-mini-card').classList.add('open');
+    routeMode && setRouteMode(routeMode);
+  });
+}
+function toggleVisited() {
+  const btn = document.getElementById('mini-visited-btn');
+  btn.textContent = btn.textContent.includes('□') ? '✓ Đã đến' : '□ Đã đến';
+}
+
+// ── ROUTE MODES ────────────────────────────────────────
+function setRouteMode(mode) {
+  routeMode = mode;
+  document.getElementById('btn-suggest').style.background = mode==='suggest'?'#1A8C6E':'var(--em)';
+  document.getElementById('btn-make').style.background = mode==='make'?'#E6F5F0':'var(--sand)';
+  const rl = document.getElementById('route-line');
+  const labels = document.getElementById('route-labels');
+  const makeBtns = document.getElementById('make-plus-btns');
+  labels.innerHTML = '';
+  makeBtns.style.display = 'none';
+  makeBtns.innerHTML = '';
+
+  if (mode === 'suggest') {
+    // Auto-number pins by position (simulate distance from YOU)
+    const you = myMapPins.find(p=>p.type==='you');
+    const others = myMapPins.filter(p=>p.type!=='you');
+    const dist = p => Math.hypot(p.x - you.x, p.y - you.y);
+    const sorted = [...others].sort((a,b) => dist(a)-dist(b));
+    const pts = sorted.map(p=>`${p.x}% ${p.y}%`).join(',');
+    rl.style.display = 'block';
+    // Add numbered labels
+    sorted.forEach((p,i) => {
+      const lbl = document.createElement('div');
+      lbl.className = 'route-label';
+      lbl.style.left = p.x+'%'; lbl.style.top = p.y+'%';
+      lbl.textContent = i+1;
+      labels.appendChild(lbl);
+    });
+  } else if (mode === 'make') {
+    rl.style.display = 'none';
+    mapMade = [];
+    // Show + buttons near each pin
+    makeBtns.style.display = 'block';
+    myMapPins.filter(p=>p.type!=='you').forEach(p => {
+      const b = document.createElement('div');
+      b.className = 'make-plus';
+      b.style.left = `calc(${p.x}% + 14px)`;
+      b.style.top = `calc(${p.y}% - 22px)`;
+      b.textContent = '+';
+      b.title = 'Add ' + p.name;
+      b.onclick = () => addMakeStop(b, p);
+      makeBtns.appendChild(b);
+    });
+  }
+}
+
+function addMakeStop(btn, p) {
+  if (mapMade.find(m=>m.id===p.id)) return;
+  mapMade.push(p);
+  btn.style.display = 'none';
+  const num = document.createElement('div');
+  num.className = 'make-num';
+  num.style.left = `calc(${p.x}% + 14px)`;
+  num.style.top = `calc(${p.y}% - 22px)`;
+  num.textContent = mapMade.length;
+  document.getElementById('make-plus-btns').appendChild(num);
+}
+
+// ── PLACE DETAIL ───────────────────────────────────────
+function openPlace(name, addr, type) {
+  document.getElementById('detail-name').textContent = name;
+  document.getElementById('detail-addr').textContent = addr;
+  const typeLabels = {thrift:'Thrift Shop',cafe:'Café',restaurant:'Restaurant',workshop:'Workshop'};
+  document.getElementById('detail-type').textContent = (typeLabels[type]||type)+' · Ho Chi Minh City';
+  closeSheet();
+  goTo('s-place');
+}
+
+function addToMap(name) {
+  closeSheet();
+  const toast = document.createElement('div');
+  toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--em);color:#fff;padding:0.5rem 1.25rem;border-radius:30px;font-size:0.82rem;font-weight:600;z-index:999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.2)';
+  toast.textContent = '✓ '+name+' added to map';
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(),2200);
+}
+
+function addNewMap() {
+  const list = document.getElementById('map-list');
+  const item = document.createElement('div');
+  item.className = 'map-list-item';
+  const num = list.children.length + 1;
+  item.innerHTML = `<div class="map-item-info"><div class="map-item-name">New Map ${num} 📍</div><div class="map-item-meta">0 pins</div></div><div class="map-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>`;
+  item.onclick = () => goTo('s-mapdetail');
+  list.appendChild(item);
+}
+
+function exportTrip(type) {
+  const toast = document.createElement('div');
+  toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:0.5rem 1.25rem;border-radius:30px;font-size:0.82rem;font-weight:600;z-index:999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.2)';
+  toast.textContent = type==='photo' ? '📸 Saving photo map…' : '📄 Generating PDF…';
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(),2200);
+}
+</script>
+</body>
+</html>
